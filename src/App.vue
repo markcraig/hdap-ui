@@ -1,7 +1,5 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import LoginView from './views/LoginView.vue';
-import AboutView from './views/AboutView.vue';
 </script>
 
 <template>
@@ -23,6 +21,9 @@ import AboutView from './views/AboutView.vue';
         </v-list>
         <v-list>
           <v-list-item :to="{path: '/view'}" title="View"></v-list-item>
+        </v-list>
+        <v-list>
+          <v-list-item :to="{path: '/search'}" title="Search"></v-list-item>
         </v-list>
       </v-navigation-drawer>
 
