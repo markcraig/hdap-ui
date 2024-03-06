@@ -7,15 +7,16 @@ import router from './router'
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import "@mdi/font/css/materialdesignicons.css";
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-const app = createApp(App)
-app.use(router)
-
 const vuetify = createVuetify({
+    theme: {
+      defaultTheme: 'light'
+    },
     components,
-    directives,
+    directives
   })
   
-createApp(App).use(vuetify).mount('#app')
+createApp(App).use(router).use(vuetify).mount('#app')

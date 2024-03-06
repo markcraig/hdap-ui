@@ -1,5 +1,7 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import LoginView from './views/LoginView.vue';
+import AboutView from './views/AboutView.vue';
 </script>
 
 <template>
@@ -11,43 +13,20 @@ import { RouterLink, RouterView } from 'vue-router'
 
       <v-navigation-drawer>
         <v-list>
-          <v-list-item title="Navigation drawer"></v-list-item>
+          <v-list-item :to="{path: '/'}" title="Home"></v-list-item>
+        </v-list>
+        <v-list>
+          <v-list-item :to="{path: '/about'}" title="About"></v-list-item>
+        </v-list>
+        <v-list>
+          <v-list-item :to="{path: '/login'}" title="Login"></v-list-item>
         </v-list>
       </v-navigation-drawer>
 
       <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
-        Main Content
-        <v-dialog max-width="500">
-          <template v-slot:activator="{ props: activatorProps }">
-            <v-btn
-              v-bind="activatorProps"
-              color="surface-variant"
-              text="Open Dialog"
-              variant="flat"
-            ></v-btn>
-          </template>
-
-          <template v-slot:default="{ isActive }">
-            <v-card title="Dialog">
-              <v-card-text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-
-                <v-btn
-                  text="Close Dialog"
-                  @click="isActive.value = false"
-                ></v-btn>
-              </v-card-actions>
-            </v-card>
-          </template>
-        </v-dialog>
+        <RouterView />
       </v-main>
     </v-layout>
-
-  <!--RouterView /-->
 </template>
 
 <style scoped>
