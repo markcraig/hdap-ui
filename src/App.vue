@@ -21,6 +21,9 @@ import AboutView from './views/AboutView.vue';
         <v-list>
           <v-list-item :to="{path: '/login'}" title="Login"></v-list-item>
         </v-list>
+        <v-list>
+          <v-list-item :to="{path: '/view'}" title="View"></v-list-item>
+        </v-list>
       </v-navigation-drawer>
 
       <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
