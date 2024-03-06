@@ -11,10 +11,7 @@ import { RouterView } from 'vue-router'
 
       <v-navigation-drawer>
         <v-list>
-          <v-list-item :to="{path: '/'}" title="Home"></v-list-item>
-        </v-list>
-        <v-list>
-          <v-list-item :to="{path: '/about'}" title="About"></v-list-item>
+          <v-list-item :to="{path: '/'}" title="About"></v-list-item>
         </v-list>
         <v-list>
           <v-list-item :to="{path: '/login'}" title="Login"></v-list-item>
