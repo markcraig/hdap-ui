@@ -1,24 +1,53 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/login">Log in</RouterLink>
-      </nav>
-    </div>
   </header>
 
-  <RouterView />
+  <v-layout class="rounded rounded-md">
+      <v-app-bar title="HDAP Demo App"></v-app-bar>
+
+      <v-navigation-drawer>
+        <v-list>
+          <v-list-item title="Navigation drawer"></v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
+        Main Content
+        <v-dialog max-width="500">
+          <template v-slot:activator="{ props: activatorProps }">
+            <v-btn
+              v-bind="activatorProps"
+              color="surface-variant"
+              text="Open Dialog"
+              variant="flat"
+            ></v-btn>
+          </template>
+
+          <template v-slot:default="{ isActive }">
+            <v-card title="Dialog">
+              <v-card-text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  text="Close Dialog"
+                  @click="isActive.value = false"
+                ></v-btn>
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
+      </v-main>
+    </v-layout>
+
+  <!--RouterView /-->
 </template>
 
 <style scoped>
