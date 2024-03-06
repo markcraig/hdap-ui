@@ -13,7 +13,7 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 const vuetify = createVuetify({
     theme: {
-      defaultTheme: 'light'
+      defaultTheme: 'dark'
     },
     components,
     directives
