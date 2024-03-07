@@ -3,9 +3,9 @@ import axios from 'axios'
 
 export const useAuthStateStore = defineStore('authState', {
   state: () => ({
-    dn: localStorage.getItem('dn') || '',
-    fullName: localStorage.getItem('fullName') || '',
-    jwt: localStorage.getItem('jwt') || ''
+    dn: '',
+    fullName: '',
+    jwt: ''
   }),
   getters: {
     getDn: (state) => state.dn,
@@ -13,6 +13,13 @@ export const useAuthStateStore = defineStore('authState', {
     getJwt: (state) => state.jwt
   },
   actions: {
+    addAuthzHeader(request) {
+      let jwt = this.jwt
+      if (jwt) {
+        request.headers.set('Authorization', `Bearer ${jwt}`)
+      }
+      return request
+    },
     async login(email, password) {
       if (!email || !password) {
         return
