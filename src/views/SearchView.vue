@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import axios from "axios"
+import {useRouter} from "vue-router";
 
 const baseDN = 'dc=com/dc=example/ou=people'
 const crumbs = baseDN.split('/')
@@ -8,8 +9,9 @@ const crumbs = baseDN.split('/')
 const uid = ref('')
 
 const headers = [
-  { title: 'DN', key: '_id' },
-  { title: 'Name', key: 'cn' }
+//  { title: 'DN', key: '_id' },
+  { title: 'Name', key: 'cn' },
+  { title: 'Actions', key: 'actions', sortable: false }
 ]
 var results = ref([
 ])
@@ -44,6 +46,16 @@ async function searchForUid() {
   }
 }
 
+function editEntry(router, item) {
+  console.log(`Editing entry ${item._id}`)
+  console.log(`Router is ${router}`)
+  router.push({ path: '/view', replace: true, params: { dn: item._id } })
+}
+
+function deleteEntry(router, item) {
+  console.log(`Deleting entry ${item._id}`)
+}
+
 </script>
 <template>
   <v-sheet>
@@ -63,7 +75,20 @@ async function searchForUid() {
                 prev-icon="$prev"
                 next-icon="$next"
                 last-icon="$last"
-                class="elevation-1"
-  ></v-data-table>
+                class="elevation-1">
+    <template v-slot:item.cn="{ item }">
+      <span @click.stop="viewEntry">{{ item.cn }}</span>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon
+        class="me-2"
+        size="small"
+        @click="editEntry($router, item)">mdi-pencil</v-icon>
+      <v-icon
+        class="me-2"
+        size="small"
+        @click="deleteEntry($router, item)">mdi-delete</v-icon>
+    </template>
+  </v-data-table>
   </v-sheet>
 </template>
