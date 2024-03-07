@@ -1,29 +1,19 @@
 <script setup>
-import {ref} from 'vue'
+import {useRoute} from 'vue-router'
+import {ref} from "vue";
 
-const dn = ref('dc=com/dc=example')
+let dn = useRoute().params.dn
 const entry = ref({})
-const schema = ref({})
 
-async function getEntry() {
-  entry.value = await fetchResource("/hdap/" + dn.value, "GET")
-  schema.value = await fetchResource("/hdap/" + dn.value + "?_action=schema", "POST")
-}
-
-async function fetchResource(path, getOrPost) {
-  const request = new Request(path, {method: getOrPost});
-  const response = await fetch(request);
-  return await response.json();
-}
+fetch(new Request("/hdap/" + dn, {method: "GET"}))
+    .then((r) => r.json())
+    .then((j) => entry.value = j )
 </script>
 
 <template>
   <div class="view">
     <h1 class="green">Entry View</h1>
-    <input v-model="dn" placeholder="Entry" type="text">
-    <button class="green" @click="getEntry">GET</button>
     <p>{{ entry }}</p>
-    <p>{{ schema }}</p>
   </div>
 </template>
 
