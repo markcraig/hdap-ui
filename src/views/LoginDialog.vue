@@ -1,14 +1,11 @@
 <script setup>
-import { useRouter, useRoute } from 'vue-router'
 import { useAuthStateStore } from '@/stores/state'
 import { ref } from 'vue'
 
-const router = useRouter()
-const route = useRoute()
 const authState = useAuthStateStore()
 let authenticated = ref('')
 const showPwd = ref(false)
-let display = true
+let display = ref(false)
 const message = ref('')
 const email = ref('bjensen@example.com')
 const password = ref('hifalutin')
@@ -38,9 +35,9 @@ function logout() {
 
 <template>
     <v-btn prepend-icon="mdi-account-outline" size="large" color="primary">
-        <v-menu location="end" activator="parent" :close-on-content-click="false">
+        <v-menu v-model="display" location="end" activator="parent" :close-on-content-click="false">
             <template v-if="authenticated">
-                <v-btn @click="logout()">Logout</v-btn>
+                <v-btn @click="display = false; logout()">Logout</v-btn>
             </template>
 
             <template v-else>
@@ -57,7 +54,8 @@ function logout() {
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn class="mt-2" text="Login" type="submit" block></v-btn>
+                            <v-btn variant="text" @click="display = false"> Cancel </v-btn>
+                            <v-btn class="mt-2" @click="display = false" text="Login" type="submit" block></v-btn>
                         </v-card-actions> </v-form>
                 </v-card>
             </template>
