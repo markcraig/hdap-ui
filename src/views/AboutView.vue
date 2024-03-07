@@ -1,11 +1,15 @@
 <template>
   <v-card>
-    <p><img src="https://i.kym-cdn.com/photos/images/original/000/234/765/b7e.jpg" width="460" height="363"
-        alt="I have no idea what I'm doing"></p>
+    <v-container style="display: flex; justify-content: center; align-items: center;">
+      <img
+        src="https://i.kym-cdn.com/photos/images/original/000/234/765/b7e.jpg"
+        alt="I have no idea what I'm doing"
+      >
+    </v-container>
 
-    <v-divider></v-divider>
+    <v-container class="text-h3" style="display: flex; justify-content: center; align-items: center;">TODO</v-container>
 
-    <h1>TODO</h1>
+    <v-container style="display: flex; justify-content: center; align-items: center;">
     <v-list>
       <v-list-item title="Tree browser"></v-list-item>
       <v-list-item title="Advanced details view"></v-list-item>
@@ -16,6 +20,7 @@
       <v-list-item title="Account mgmt (lock, unlock, etc.)"></v-list-item>
       <v-list-item title="Advanced search"></v-list-item>
     </v-list>
+    </v-container>
   </v-card>
 </template>
 
