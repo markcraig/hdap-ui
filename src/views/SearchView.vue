@@ -35,7 +35,7 @@ async function searchForUid() {
         'Content-Type': 'application/json',
       },
       params: {
-        _queryFilter: `cn co '${uid.value}' or uid co '${uid.value}'`,
+        _queryFilter: `cn co '${uid.value}' or uid eq '${uid.value}'`,
         scope: 'sub',
         _fields: "cn,_id"
       }
