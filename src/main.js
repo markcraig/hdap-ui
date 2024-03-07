@@ -16,7 +16,8 @@ const pinia = createPinia()
 
 const vuetify = createVuetify({
     theme: {
-      defaultTheme: 'dark'
+      defaultTheme: 'light',
+      dark: window.matchMedia("(prefers-color-scheme: dark)").matches
     },
     components,
     directives
