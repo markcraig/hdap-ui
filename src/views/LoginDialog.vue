@@ -37,8 +37,7 @@ function logout() {
 </script>
 
 <template>
-    <v-btn icon="mdi-account-outline" size="large" color="primary">
-        Click me
+    <v-btn prepend-icon="mdi-account-outline" size="large" color="primary">
         <v-menu location="end" activator="parent">
             <template v-if="authenticated">
                 <v-btn @click="logout()">Logout</v-btn>
