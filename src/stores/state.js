@@ -13,6 +13,9 @@ export const useAuthStateStore = defineStore('authState', {
     getJwt: (state) => state.jwt
   },
   actions: {
+    isAuthenticated(){
+      return (localStorage.getItem('jwt') !== '')
+    },
     addAuthzHeader(request) {
       let jwt = this.jwt
       if (jwt) {
