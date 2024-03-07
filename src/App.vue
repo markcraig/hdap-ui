@@ -18,9 +18,6 @@ function logout() {
           <v-list-item :to="{path: '/login'}" title="Login"></v-list-item>
         </v-list>
         <v-list>
-          <v-list-item :to="{path: '/view'}" title="View"></v-list-item>
-        </v-list>
-        <v-list>
           <v-list-item :to="{path: '/search'}" title="Search"></v-list-item>
         </v-list>
       </v-navigation-drawer>

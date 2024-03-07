@@ -49,7 +49,7 @@ async function searchForUid() {
 function editEntry(router, item) {
   console.log(`Editing entry ${item._id}`)
   console.log(`Router is ${router}`)
-  router.push({ path: `/ui/${item._id}`, replace: true })
+  router.push({ path: `/view/${item._id}`, replace: true })
 }
 
 function deleteEntry(router, item) {
