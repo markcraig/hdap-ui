@@ -1,9 +1,17 @@
 <script setup>
 import { ref } from 'vue'
 import axios from "axios"
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import {useAuthStateStore} from "@/stores/state.js";
 
-const baseDN = 'dc=com/dc=example/ou=people'
+const authState = useAuthStateStore()
+
+let baseDN = 'dc=com/dc=example/ou=people'
+// try {
+//   baseDN = useRoute().params.dn
+// } catch (error) {
+//   baseDN = 'dc=com/dc=example/ou=people'
+// }
 const crumbs = baseDN.split('/')
 
 const uid = ref('')
@@ -13,7 +21,7 @@ const headers = [
   { title: 'Name', key: 'cn' },
   { title: 'Actions', key: 'actions', sortable: false }
 ]
-var results = ref([
+let results = ref([
 ])
 
 async function searchForUid() {
@@ -22,24 +30,25 @@ async function searchForUid() {
   }
   console.log(`In searchForUid for ${uid.value}`)
   try {
-    let res = await axios.get('/hdap/dc=com/dc=example', {
+    let config = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa('uid=admin:password')}`
       },
       params: {
-        _queryFilter: `uid co '${uid.value}'`,
+        _queryFilter: `cn co '${uid.value}' or uid co '${uid.value}'`,
         scope: 'sub',
         _fields: "cn,_id"
       }
-    })
+    }
+
+    let res = await axios.get(`/hdap/${baseDN}`, authState.addAuthzHeader(config))
     let sr = await res.data.result
     console.log(`search results are ${JSON.stringify(sr)}`)
     results.value = []
     for (let result of sr) {
       results.value.push({ _id: result._id, cn: result.cn[0] })
     }
-    console.log(`Converted ${sr.length} -> ${results.value.length}`)
+    console.log(`Converted ${sr.length} results`)
     console.log(`The final results are ${JSON.stringify(results.value)}`)
   } catch (error) {
     console.error(error)
@@ -49,7 +58,7 @@ async function searchForUid() {
 function editEntry(router, item) {
   console.log(`Editing entry ${item._id}`)
   console.log(`Router is ${router}`)
-  router.push({ path: `/view/${item._id}`, replace: true })
+  router.push({ path: `/view/${item._id}` })
 }
 
 function deleteEntry(router, item) {
@@ -77,7 +86,7 @@ function deleteEntry(router, item) {
                 last-icon="$last"
                 class="elevation-1">
     <template v-slot:item.cn="{ item }">
-      <span @click.stop="viewEntry">{{ item.cn }}</span>
+      <span @click.stop="editEntry($router, item)">{{ item.cn }}</span>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon
