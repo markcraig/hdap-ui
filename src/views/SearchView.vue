@@ -6,7 +6,7 @@ import {useAuthStateStore} from "@/stores/state.js";
 
 const authState = useAuthStateStore()
 
-let baseDN = 'dc=com/dc=example/ou=people'
+let baseDN = 'dc=com/dc=example'
 // try {
 //   baseDN = useRoute().params.dn
 // } catch (error) {
