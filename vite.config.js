@@ -15,7 +15,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/hdap': 'http://localhost:8080'
+      '/hdap': { 
+        target: 'https://localhost:8443',
+        secure: false   // Don't validate the server cert.
+      }
     }
   }
 })

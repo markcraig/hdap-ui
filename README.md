@@ -8,7 +8,7 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## Directory server setup
 
-The app relies on a DS with the evaluation profile with an HTTP connection handler listening at `http://localhost:8080`.
+The app relies on a DS with the evaluation profile and an HTTPS connection handler listening at `https://localhost:8443`.
 In the default password policy, turn off the requirement to authenticate over a secure connection.
 
 For example:
@@ -18,32 +18,33 @@ unzip -q ~/.m2/repository/org/forgerock/opendj/opendj-server/7.5.0-SNAPSHOT/open
 
 export DEPLOYMENT_ID=ADaMkVIXfryp4tZN3_0V4WoB3BZc9SQ5CBVN1bkVDE6OSY5Kl7pIibg
 
-./opendj/setup \
---serverId evaluation-only \
---deploymentId $DEPLOYMENT_ID \
---deploymentIdPassword password \
---rootUserDN uid=admin \
---rootUserPassword password \
---monitorUserPassword password \
---hostname localhost \
---adminConnectorPort 4444 \
---ldapsPort 1636 \
---httpPort 8080 \
---replicationPort 8989 \
---bootstrapReplicationServer localhost:8989 \
---profile ds-evaluation \
---acceptLicense
+./opendj/setup \                                                                                    
+ --serverId evaluation-only \
+ --deploymentId $DEPLOYMENT_ID \
+ --deploymentIdPassword password \
+ --rootUserDN uid=admin \
+ --rootUserPassword password \
+ --monitorUserPassword password \
+ --hostname localhost \
+ --adminConnectorPort 4444 \
+ --ldapPort 1389 \
+ --enableStartTls \
+ --ldapsPort 1636 \     
+ --httpsPort 8443 \                          
+ --replicationPort 8989 \
+ --bootstrapReplicationServer localhost:8989 \
+ --profile ds-evaluation \
+ --start \
+ --acceptLicense
 
-./opendj/bin/dsconfig \
-set-password-policy-prop \
---policy-name Default\ Password\ Policy \
---set require-secure-authentication:false \
---set require-secure-password-changes:false \
---offline \
---no-prompt
+Validating parameters..... Done
+Configuring certificates..... Done
+Configuring server..... Done
+Configuring profile DS evaluation................. Done
+Starting directory server.................. Done
 
-./opendj/bin/start-ds
-... The Directory Server has started successfully
+To see basic server status and configuration, you can launch
+/Users/markc/path/to/opendj/bin/status
 ```
 
 In the DS evaluation profile:
